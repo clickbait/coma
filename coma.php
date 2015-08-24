@@ -1,3 +1,4 @@
+<?php
 Class Coma {
   public function __construct($csv) {
     $this->csv = $csv;
