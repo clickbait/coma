@@ -1,6 +1,8 @@
 # coma
 Coma is a small PHP class for parsing CSV files and turning them into structured arrays.
 
+## Usage
+
 Using Coma is pretty damn simple, just add your CSV to the object when you create it, and then call the parse method.
 
 ```php
@@ -37,5 +39,26 @@ Array
 
 )
 ```
+
+### Optional CSV Settings
+
+If needed, you can optionally pass to Coma::__construct() some CSV settings, via array. The available settings are:
+
+- **delimiter**: defaults to `','`;
+- **eol**: defaults to `"\n"`.
+
+Example passing different values via these settings:
+
+```php
+$array = (new Coma(
+    file_get_contents('data.csv'),
+    [
+        'delimiter' => '|',
+        'eol' => "\r\n",
+    ])
+)->parse();
+```
+
+## Support
 
 If you have any issues with this, feel free to submit a pull request or make an issue.

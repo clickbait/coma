@@ -1,13 +1,23 @@
 <?php
 Class Coma {
-  public function __construct($csv) {
+  private $delimiter = ',';
+  private $eol = "\n";
+  public function __construct($csv, array $csvSettings) {
     $this->csv = $csv;
+
+    if (array_key_exists('delimiter', $csvSettings)) {
+      $this->delimiter = $csvSettings['delimiter'];
+    }
+
+    if (array_key_exists('eol', $csvSettings)) {
+      $this->eol = $csvSettings['eol'];
+    }
   }
   public function parse() {
     $i = null;
 
-    list($headers, $this->csv) = explode("\n", $this->csv, 2);
-    $headers = str_getcsv($headers, ',', '"');
+    list($headers, $this->csv) = explode($this->eol, $this->csv, 2);
+    $headers = str_getcsv($headers, $this->delimiter, '"');
 
     foreach ($headers as $header) {
       $this->{$header} = [];
@@ -16,9 +26,9 @@ Class Coma {
 
 
     $i = null;
-    $lines = explode("\n", $this->csv);
+    $lines = explode($this->eol, $this->csv);
     foreach ($lines as $line ) {
-      $columns = str_getcsv($line, ',', '"');
+      $columns = str_getcsv($line, $this->delimiter, '"');
       if (count($columns) > count($this->keymap)) {
         continue;
       }
