@@ -2,7 +2,7 @@
 Class Coma {
   private $delimiter = ',';
   private $eol = "\n";
-  public function __construct($csv, array $csvSettings) {
+  public function __construct($csv, array $csvSettings = []) {
     $this->csv = $csv;
 
     if (array_key_exists('delimiter', $csvSettings)) {
